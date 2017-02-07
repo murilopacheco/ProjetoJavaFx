@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="600.0" text="Pessoa"
+            xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="Controller.PessoaController">
+  <content>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="415.0" prefWidth="609.0">
+         <children>
+            <Label layoutX="20.0" layoutY="14.0" prefHeight="35.0" prefWidth="162.0" text="Cadastro de Pessoas" textAlignment="CENTER">
+               <font>
+                  <Font name="Arial" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="25.0" layoutY="71.0" text="Nome:" />
+            <TextField id="txtNome" fx:id="txtNome" layoutX="68.0" layoutY="67.0" prefHeight="25.0" prefWidth="167.0" />
+            <Label layoutX="238.0" layoutY="71.0" text="Sobre Nome:" />
+            <TextField id="txtSobrenome" fx:id="txtSobreNome" layoutX="322.0" layoutY="67.0" prefHeight="25.0" prefWidth="265.0" />
+            <Label layoutX="32.0" layoutY="113.0" text="CPF:" />
+            <TextField id="txtCPF" fx:id="txtCPF" layoutX="68.0" layoutY="109.0" prefHeight="25.0" prefWidth="167.0" />
+            <Label layoutX="259.0" layoutY="113.0" text="Telefone:" />
+            <TextField id="txtTelefone" fx:id="txtTelefone" layoutX="322.0" layoutY="109.0" prefHeight="25.0" prefWidth="265.0" />
+            <Label layoutX="6.0" layoutY="147.0" text="Endereço:" />
+            <TextField id="txtEndereco" fx:id="txtEndereco" layoutX="68.0" layoutY="143.0" prefHeight="25.0" prefWidth="518.0" />
+            <TreeTableView layoutX="14.0" layoutY="174.0" prefHeight="210.0" prefWidth="570.0">
+              <columns>
+                <TreeTableColumn id="colunaNome" prefWidth="111.0" text="NOME" />
+                <TreeTableColumn id="colunaSobreNome" prefWidth="181.0" text="SOBRENOME" />
+                  <TreeTableColumn id="colunaCPF" prefWidth="138.0" text="CPF" />
+                  <TreeTableColumn id="colunaDataNascimento" prefWidth="138.0" text="DATA NASCIMENTO" />
+              </columns>
+            </TreeTableView>
+            <Button id="btnSalvar" layoutX="88.0" layoutY="410.0" mnemonicParsing="false" text="Salvar" onAction="#Salvar" />
+            <Button id="btnAtualizar" layoutX="152.0" layoutY="410.0" mnemonicParsing="false" text="Atualizar" />
+            <Button id="btnApagar" layoutX="229.0" layoutY="410.0" mnemonicParsing="false" text="Apagar" />
+            <Button id="btnLimpar" layoutX="301.0" layoutY="410.0" mnemonicParsing="false" text="Limpar" />
+         </children></AnchorPane>
+  </content>
+</TitledPane>
