@@ -17,15 +17,15 @@
                </font>
             </Label>
             <Label layoutX="25.0" layoutY="71.0" text="Nome:" />
-            <TextField id="txtNome" fx:id="txtNome" layoutX="68.0" layoutY="67.0" prefHeight="25.0" prefWidth="167.0" />
-            <Label layoutX="238.0" layoutY="71.0" text="Sobre Nome:" />
-            <TextField id="txtSobrenome" fx:id="txtSobreNome" layoutX="322.0" layoutY="67.0" prefHeight="25.0" prefWidth="265.0" />
+            <TextField id="nome" fx:id="nome" layoutX="68.0" layoutY="67.0" prefHeight="25.0" prefWidth="167.0" />
+            <Label layoutX="238.0" layoutY="71.0" text="Sobrenome:" />
+            <TextField id="sobrenome" fx:id="sobrenome" layoutX="322.0" layoutY="67.0" prefHeight="25.0" prefWidth="265.0" />
             <Label layoutX="32.0" layoutY="113.0" text="CPF:" />
-            <TextField id="txtCPF" fx:id="txtCPF" layoutX="68.0" layoutY="109.0" prefHeight="25.0" prefWidth="167.0" />
+            <TextField id="CPF" fx:id="CPF" layoutX="68.0" layoutY="109.0" prefHeight="25.0" prefWidth="167.0" />
             <Label layoutX="259.0" layoutY="113.0" text="Telefone:" />
-            <TextField id="txtTelefone" fx:id="txtTelefone" layoutX="322.0" layoutY="109.0" prefHeight="25.0" prefWidth="265.0" />
+            <TextField id="telefone" fx:id="telefone" layoutX="322.0" layoutY="109.0" prefHeight="25.0" prefWidth="265.0" />
             <Label layoutX="6.0" layoutY="147.0" text="Endereço:" />
-            <TextField id="txtEndereco" fx:id="txtEndereco" layoutX="68.0" layoutY="143.0" prefHeight="25.0" prefWidth="518.0" />
+            <TextField id="endereco" fx:id="endereco" layoutX="68.0" layoutY="143.0" prefHeight="25.0" prefWidth="518.0" />
             <TreeTableView layoutX="14.0" layoutY="174.0" prefHeight="210.0" prefWidth="570.0">
               <columns>
                 <TreeTableColumn id="colunaNome" prefWidth="111.0" text="NOME" />

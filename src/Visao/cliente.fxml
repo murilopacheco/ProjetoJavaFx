@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="446.0"
+      prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+fx:controller="Controller.ClienteController">
+   <children>
+      <TextField fx:id="txtNome" layoutX="99.0" layoutY="30.0" />
+      <Label layoutX="55.0" layoutY="34.0" text="Nome:" />
+      <Label layoutX="262.0" layoutY="34.0" text="Sobrenome:" />
+      <TextField fx:id="txtSobrenome" layoutX="335.0" layoutY="30.0" />
+      <Label layoutX="72.0" layoutY="70.0" text="RG:" />
+      <TextField fx:id="txtRg" layoutX="99.0" layoutY="66.0" />
+      <Label layoutX="303.0" layoutY="70.0" text="CPF:" />
+      <TextField fx:id="txtCpf" layoutX="335.0" layoutY="66.0" />
+      <Label layoutX="37.0" layoutY="112.0" text="Endereço:" />
+      <TextField fx:id="txtEndereco" layoutX="99.0" layoutY="108.0" prefHeight="25.0" prefWidth="392.0" />
+      <Label layoutX="37.0" layoutY="154.0" text="Telefone:" />
+      <TextField fx:id="txtTelefone" layoutX="99.0" layoutY="150.0" />
+      <Label layoutX="290.0" layoutY="154.0" text="Celular:" />
+      <TextField fx:id="txtCelular" layoutX="343.0" layoutY="150.0" />
+      <TableView layoutX="14.0" layoutY="210.0" prefHeight="200.0" prefWidth="571.0">
+        <columns>
+          <TableColumn fx:id="colunaId" prefWidth="87.0" text="CODIGO" />
+          <TableColumn fx:id="colunaNome" prefWidth="171.0" text="NOME" />
+            <TableColumn fx:id="colunaCPF" prefWidth="182.0" text="CPF" />
+            <TableColumn fx:id="colunaTelefone" prefWidth="130.0" text="TELEFONE" />
+        </columns>
+      </TableView>
+      <Button layoutX="485.0" layoutY="181.0" mnemonicParsing="false" text="Salvar" onAction="#salvar"/>
+      <Button layoutX="539.0" layoutY="181.0" mnemonicParsing="false" text="Listar" />
+   </children>
+</Pane>
