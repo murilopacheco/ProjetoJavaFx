@@ -22,7 +22,7 @@ fx:controller="Controller.ClienteController">
       <TextField fx:id="txtTelefone" layoutX="99.0" layoutY="150.0" />
       <Label layoutX="290.0" layoutY="154.0" text="Celular:" />
       <TextField fx:id="txtCelular" layoutX="343.0" layoutY="150.0" />
-      <TableView layoutX="14.0" layoutY="210.0" prefHeight="200.0" prefWidth="571.0">
+      <TableView layoutX="14.0" layoutY="210.0" prefHeight="200.0" prefWidth="571.0" fx:id="tabelaClientes">
         <columns>
           <TableColumn fx:id="colunaId" prefWidth="87.0" text="CODIGO" />
           <TableColumn fx:id="colunaNome" prefWidth="171.0" text="NOME" />

@@ -59,14 +59,7 @@ public class ClienteController implements Initializable {
     // Ele vem da interface Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        colunaNome = new TableColumn<Cliente, String>("nome");
-        colunaCPF = new TableColumn<Cliente, String>("cpf");
-        colunaId = new TableColumn<Cliente, Integer>("id");
-        colunaTelefone = new TableColumn<Cliente, String>("telefone");
-        colunaNome.setCellValueFactory(new PropertyValueFactory<Cliente, String >("nome"));
-        colunaCPF.setCellValueFactory(new PropertyValueFactory<Cliente,String>("cpf"));
-        colunaId.setCellValueFactory(new PropertyValueFactory<Cliente, Integer>("id"));
-        colunaTelefone.setCellValueFactory(new PropertyValueFactory<Cliente, String>("telefone"));
+
 
     }
 
@@ -90,8 +83,15 @@ public class ClienteController implements Initializable {
         cliente = new Cliente();
         tabelaClientes = new TableView<Cliente>();
         pegaValores(cliente);
-
-
+        clientes.add(cliente);
+        colunaNome = new TableColumn<Cliente, String>("nome");
+        colunaCPF = new TableColumn<Cliente, String>("cpf");
+        colunaId = new TableColumn<Cliente, Integer>("id");
+        colunaTelefone = new TableColumn<Cliente, String>("telefone");
+        colunaNome.setCellValueFactory(new PropertyValueFactory<Cliente, String >("nome"));
+        colunaCPF.setCellValueFactory(new PropertyValueFactory<Cliente,String>("cpf"));
+        colunaId.setCellValueFactory(new PropertyValueFactory<Cliente, Integer>("id"));
+        colunaTelefone.setCellValueFactory(new PropertyValueFactory<Cliente, String>("telefone"));
        final ObservableList<Cliente> clientesView = FXCollections.observableArrayList(clientes);
         tabelaClientes.setItems(clientesView);
         tabelaClientes.getColumns().addAll(colunaId, colunaNome, colunaCPF, colunaTelefone);
