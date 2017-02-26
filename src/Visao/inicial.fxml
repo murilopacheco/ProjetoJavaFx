@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.media.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Controller.InicialController">
+   <children>
+      <BorderPane layoutX="-2.0" layoutY="-2.0" prefHeight="407.0" prefWidth="606.0">
+         <top>
+            <MenuBar BorderPane.alignment="CENTER">
+              <menus>
+                <Menu mnemonicParsing="false" text="Cadastros">
+                  <items>
+                      <MenuItem fx:id="menuCadastrarCliente" mnemonicParsing="false" onAction="#goTo"  text="Cadastrar Clientes" ></MenuItem>
+                        <MenuItem mnemonicParsing="false" text="Fechar" />
+
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Relatórios">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Configurações">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </top>
+      </BorderPane>
+   </children>
+</AnchorPane>
