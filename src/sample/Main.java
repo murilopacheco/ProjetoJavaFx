@@ -22,7 +22,7 @@ public class Main extends Application {
          URL arquivoFXML;
         arquivoFXML = getClass().getResource("/Visao/inicial.fxml");
         Parent fxmlParent =(Parent) FXMLLoader.load(arquivoFXML);
-            Scene cena = new Scene(fxmlParent, 800, 640);
+            Scene cena = new Scene(fxmlParent, 800, 600);
              principal.setTitle("Janela Principal");
              principal.setScene(cena);
             principal.show();

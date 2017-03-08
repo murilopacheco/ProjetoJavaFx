@@ -14,7 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
-import sample.*;
+import sample.Main;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -26,6 +26,8 @@ import java.util.ResourceBundle;
  * Created by murilo on 07/02/2017.
  */
 public class ClienteController implements Initializable {
+
+   // private final static int rowsPerPage = 1000;
 
 
     @FXML
@@ -157,6 +159,7 @@ public class ClienteController implements Initializable {
                     .showInformation();
 
             limpaCampos();
+            btnAcao.setText("Salvar");
             }
 
     }
@@ -177,7 +180,7 @@ public class ClienteController implements Initializable {
                 .hideAfter(Duration.seconds(3))
                 .darkStyle()
                 .position(Pos.TOP_RIGHT)
-                .showInformation();
+                .showConfirm();
     }
 
     public void populaView(List<Cliente> clientes){
@@ -189,5 +192,7 @@ public class ClienteController implements Initializable {
         tabelaClientes.setItems(clientesView);
 
     }
+
+
 }
 

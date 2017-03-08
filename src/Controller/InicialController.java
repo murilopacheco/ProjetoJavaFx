@@ -9,6 +9,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -24,39 +27,24 @@ public class InicialController implements Initializable {
 
     @FXML
     private MenuItem menuCadastrarCliente;
-
     @FXML
-    void goTo(ActionEvent event){
-        menuCadastrarCliente.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Stage stage = (Stage) event.getTarget();
-                Parent root = null;
-                try {
-                    root = FXMLLoader.load(getClass().getResource("/Visao/cliente.fxml"));
-                } catch (IOException ex) {
-                    Logger.getLogger(InicialController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
-            }
-        });
+    private Pane paneInicial;
 
+
+    public void abrirJanela(ActionEvent t) throws IOException {
+        URL arquivoFXML;
+        arquivoFXML = getClass().getResource("/Visao/cliente.fxml");
+        Parent fxmlParent =(Parent) FXMLLoader.load(arquivoFXML);
+        paneInicial.getChildren().add(fxmlParent);
+        //  Scene cena = new Scene(fxmlParent, 600, 400);
+      //  ((Stage)paneInicial.getScene().getWindow()).setScene(cena);
     }
+
+
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-    }
-
-    public void AbreTelaCadastroCliente() throws IOException {
-        Stage stage = null;
-        Parent root = FXMLLoader.load(getClass().getResource("/Visao/cliente.fxml"));
-        Scene scene = new Scene(root, 600, 400);
-        stage.setScene(scene);
-        stage.show();
 
     }
 

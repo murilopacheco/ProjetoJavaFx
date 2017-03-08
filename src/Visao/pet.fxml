@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<TitledPane animated="false" maxHeight="-Infinity"
+            maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="600.0" text="Pet"
+            xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8"
+            fx:controller="Controller.PetController">
+  <content>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+         <children>
+            <Label layoutX="70.0" layoutY="35.0" text="Nome:" />
+            <TextField fx:id="txtNome" layoutX="116.0" layoutY="31.0" prefHeight="25.0" prefWidth="449.0" />
+            <Label layoutX="76.0" layoutY="70.0" text="Sexo:" />
+            <HBox layoutX="116.0" layoutY="70.0" prefHeight="21.0" prefWidth="122.0">
+               <children>
+                  <RadioButton fx:id="radioMacho" mnemonicParsing="false" text="Macho" >
+                      <toggleGroup>
+                          <ToggleGroup fx:id="groupSexo" />
+                      </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="radioFemea" mnemonicParsing="false" text="Fêmea" toggleGroup="$groupSexo"/>
+               </children>
+            </HBox>
+            <Label layoutX="10.0" layoutY="103.0" text="Data Nascimento:" />
+            <DatePicker fx:id="dtDataNascimento" layoutX="116.0" layoutY="99.0" />
+            <Label layoutX="76.0" layoutY="143.0" text="Raça:" />
+            <ComboBox fx:id="comboRaca" layoutX="116.0" layoutY="139.0" prefWidth="150.0" />
+            <Label layoutX="74.0" layoutY="181.0" text="Cor:" />
+            <TextField fx:id="txtCor" layoutX="116.0" layoutY="177.0" prefHeight="25.0" prefWidth="184.0" />
+            <Button layoutX="333.0" layoutY="230.0" mnemonicParsing="false" onAction="#salvar" text="Salvar" />
+         </children></AnchorPane>
+  </content>
+</TitledPane>
