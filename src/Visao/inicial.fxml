@@ -20,7 +20,9 @@
                 <Menu mnemonicParsing="false" text="Cadastros">
                   <items>
                       <MenuItem fx:id="menuCadastrarCliente" mnemonicParsing="false"
-                                onAction="#abrirJanela" text="Cadastrar Clientes" />
+                                onAction="#abrirJanelaCliente" text="Cadastrar Clientes" />
+                      <MenuItem fx:id="menuCadastrarPet" mnemonicParsing="false"
+                                onAction="#abrirJanelaPet" text="Cadastrar Pets" />
                         <MenuItem mnemonicParsing="false" text="Fechar" />
 
                         </items>

@@ -7,6 +7,7 @@ import java.time.LocalDate;
  */
 public class Pet {
 
+    private Integer id;
     private  String nome;
     private String raca;
     private String cor;
@@ -51,5 +52,13 @@ public class Pet {
 
     public void setSexo(String sexo) {
         this.sexo = sexo;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

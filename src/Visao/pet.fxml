@@ -1,37 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<TitledPane animated="false" maxHeight="-Infinity"
-            maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="400.0" prefWidth="600.0" text="Pet"
-            xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8"
-            fx:controller="Controller.PetController">
-  <content>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+<Pane fx:id="panePrincipal" maxHeight="-Infinity" maxWidth="-Infinity"
+      minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+      prefWidth="600.0" xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.PetController">
+  <children>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="374.0" prefWidth="410.0">
          <children>
-            <Label layoutX="70.0" layoutY="35.0" text="Nome:" />
-            <TextField fx:id="txtNome" layoutX="116.0" layoutY="31.0" prefHeight="25.0" prefWidth="449.0" />
-            <Label layoutX="76.0" layoutY="70.0" text="Sexo:" />
-            <HBox layoutX="116.0" layoutY="70.0" prefHeight="21.0" prefWidth="122.0">
+            <Label layoutX="73.0" layoutY="42.0" text="Nome:" />
+            <Label layoutX="357.0" layoutY="46.0" text="Sexo" />
+            <HBox id="rbSexoId" fx:id="hboxSexo" layoutX="390.0" layoutY="42.0" prefHeight="28.0" prefWidth="205.0">
                <children>
-                  <RadioButton fx:id="radioMacho" mnemonicParsing="false" text="Macho" >
-                      <toggleGroup>
-                          <ToggleGroup fx:id="groupSexo" />
-                      </toggleGroup>
+            <RadioButton id="rbFemea" mnemonicParsing="false" prefHeight="21.0" prefWidth="111.0" text="Femea" fx:id="radioFemea">
+               <toggleGroup>
+                  <ToggleGroup fx:id="groupSexo" />
+               </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="radioFemea" mnemonicParsing="false" text="Fêmea" toggleGroup="$groupSexo"/>
+            <RadioButton id="rbMacho" mnemonicParsing="false" selected="true" text="Macho" toggleGroup="$groupSexo" fx:id="radioMacho" />
                </children>
-            </HBox>
-            <Label layoutX="10.0" layoutY="103.0" text="Data Nascimento:" />
-            <DatePicker fx:id="dtDataNascimento" layoutX="116.0" layoutY="99.0" />
-            <Label layoutX="76.0" layoutY="143.0" text="Raça:" />
-            <ComboBox fx:id="comboRaca" layoutX="116.0" layoutY="139.0" prefWidth="150.0" />
-            <Label layoutX="74.0" layoutY="181.0" text="Cor:" />
-            <TextField fx:id="txtCor" layoutX="116.0" layoutY="177.0" prefHeight="25.0" prefWidth="184.0" />
-            <Button layoutX="333.0" layoutY="230.0" mnemonicParsing="false" onAction="#salvar" text="Salvar" />
+      </HBox>
+            <Label layoutX="22.0" layoutY="70.0" text="Data Nascimento" />
+            <Label layoutX="356.0" layoutY="70.0" text="Raça" />
+            <Label layoutX="95.0" layoutY="100.0" text="Cor" />
+            <TextField fx:id="txtNome" layoutX="119.0" layoutY="38.0" prefHeight="25.0" prefWidth="232.0" />
+            <DatePicker fx:id="dtDataNascimento" layoutX="119.0" layoutY="66.0" />
+            <ComboBox fx:id="comboRaca" layoutX="394.0" layoutY="66.0" prefWidth="150.0" />
+            <TextField fx:id="txtCor" layoutX="119.0" layoutY="96.0" />
+            <Button layoutX="370.0" layoutY="136.0" mnemonicParsing="false" onAction="#salvar" text="Salvar" fx:id="btnSalvar"/>
+            <Button layoutX="432.0" layoutY="136.0" mnemonicParsing="false" onAction="#alterar" text="Alterar" fx:id="btnAlterar"/>
+            <Label layoutX="19.0" prefHeight="17.0" prefWidth="170.0" text="Cadastro de Pets">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <TableView fx:id="tblPets" layoutX="-1.0" layoutY="174.0" prefHeight="200.0" prefWidth="600.0"
+            onMouseClicked="#prepararEdicao">
+              <columns>
+                <TableColumn fx:id="clCodigo" prefWidth="75.0" text="Codigo" />
+                <TableColumn fx:id="clNome" prefWidth="205.0" text="Nome" />
+                  <TableColumn fx:id="clRaca" prefWidth="169.0" text="Raça" />
+                  <TableColumn fx:id="clSexo" prefWidth="150.0" text="Sexo" />
+              </columns>
+            </TableView>
          </children></AnchorPane>
-  </content>
-</TitledPane>
+  </children>
+</Pane>

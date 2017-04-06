@@ -15,6 +15,7 @@ public class Cliente {
     private final SimpleStringProperty endereco = new SimpleStringProperty();
     private final SimpleStringProperty telefone = new SimpleStringProperty();
     private final SimpleStringProperty celular = new SimpleStringProperty();
+    private final SimpleStringProperty email = new SimpleStringProperty();
 
     public Cliente(String cpf, String nome, String telefone, String celular, String endereco, String rg) {
         this.nome.set(nome);
@@ -124,5 +125,17 @@ public class Cliente {
 
     public void setCelular(String celular) {
         this.celular.set(celular);
+    }
+
+    public String getEmail() {
+        return email.get();
+    }
+
+    public SimpleStringProperty emailProperty() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email.set(email);
     }
 }

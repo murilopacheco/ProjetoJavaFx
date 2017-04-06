@@ -1,20 +1,21 @@
 package Controller;
 
 import Model.Cliente;
+import Negocio.ClienteNegocio;
 import Service.PessoaService;
+import javafx.animation.RotateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 import sample.Main;
+import teste.TesteControle;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -45,6 +46,8 @@ public class ClienteController implements Initializable {
     @FXML
     private TextField txtNome;
     @FXML
+    private TextField txtEmail;
+    @FXML
     private TextField txtCpf;
     @FXML
     private TextField txtEndereco;
@@ -65,10 +68,11 @@ public class ClienteController implements Initializable {
 
 
 
-    private PessoaService pessoaService;
+
     List<Cliente> clientes = new ArrayList();
     Main main = null;
     ObservableList<Cliente> clientesView = null;
+    ClienteNegocio clienteNegocio = new ClienteNegocio();
 
     // Esse método é chamado ao inicializar a aplicação, igual um construtor.
     // Ele vem da interface Initializable
@@ -89,6 +93,7 @@ public class ClienteController implements Initializable {
         cliente.setTelefone(txtTelefone.getText());
         cliente.setCelular(txtCelular.getText());
         cliente.setRg(txtRg.getText());
+        cliente.setEmail(txtEmail.getText());
     }
 
     private void setaValores(Cliente cliente) {
@@ -101,6 +106,7 @@ public class ClienteController implements Initializable {
         txtTelefone.setText(cliente.getTelefone());
         txtCelular.setText(cliente.getCelular());
         txtRg.setText(cliente.getRg());
+        txtEmail.setText(cliente.getEmail());
 
     }
 
@@ -114,53 +120,54 @@ public class ClienteController implements Initializable {
         txtTelefone.setText("");
         txtCelular.setText("");
         txtRg.setText("");
+        txtEmail.setText("");
     }
 
     @FXML
     private void salvar(){
+        String validar;
+        boolean validacao = false;
         cliente = new Cliente();
         pegaValores(cliente);
-        if(cliente.getId() == 0) {
-            Random gerador = new Random();
-            cliente.setId(gerador.nextInt());
-            clientes.add(cliente);
-            populaView(clientes);
+        validacao = validarCampos();
+        if(validacao) {
+            if (cliente.getId() == 0) {
+                Random gerador = new Random();
+                cliente.setId(gerador.nextInt());
+                 validar = clienteNegocio.salvar(cliente);
+                if(validar.equals("salvo")) {
+                    clientes.add(cliente);
+                    populaView(clientes);
 
-            String msg = "Objeto inserido na tabela!";
-            Notifications.create()
-                    .title("Informações inseridas")
-                    .text(msg)
-                    .owner(main)
-                    .hideAfter(Duration.seconds(3))
-                    .darkStyle()
-                    .position(Pos.TOP_RIGHT)
-                    .showInformation();
+                    String msg = "Objeto inserido na tabela!";
+                    exibeMensagem(msg);
+                    limpaCampos();
+                }else{
+                    exibeMensagem(validar);
+                }
+            } else {
+                List<Cliente> clientesAuxRemove = new ArrayList<Cliente>();
+                for (Cliente clienteLista : clientes) {
+                    if (clienteLista.getId() == cliente.getId()) {
+                        clientesAuxRemove.add(clienteLista);
+                    }
+                }
+                clientes.removeAll(clientesAuxRemove);
+                validar = clienteNegocio.salvar(cliente);
+                if (validar.equals("salvar")) {
+                    clientes.add(cliente);
+                    populaView(clientes);
 
-            limpaCampos();
-        }else {
-            List<Cliente> clientesAuxRemove = new ArrayList<Cliente>();
-            for(Cliente clienteLista  : clientes){
-                if(clienteLista.getId() == cliente.getId()) {
-                    clientesAuxRemove.add(clienteLista);
+                    String msg = "Objeto editado com sucesso!";
+                   exibeMensagem(msg);
+
+                    limpaCampos();
+                    btnAcao.setText("Salvar");
+                }else{
+                    exibeMensagem(validar);
                 }
             }
-                clientes.removeAll(clientesAuxRemove);
-                clientes.add(cliente);
-                populaView(clientes);
-
-            String msg = "Objeto editado com sucesso!";
-            Notifications.create()
-                    .title("Informações editadas")
-                    .text(msg)
-                    .owner(main)
-                    .hideAfter(Duration.seconds(3))
-                    .darkStyle()
-                    .position(Pos.TOP_RIGHT)
-                    .showInformation();
-
-            limpaCampos();
-            btnAcao.setText("Salvar");
-            }
+        }
 
     }
 
@@ -173,14 +180,7 @@ public class ClienteController implements Initializable {
         btnAcao.setText("Editar");
         btnLimpar.setText("Cancelar");
         String msg  = "Cliente pronto para edição!";
-        Notifications.create()
-                .title("Informações inseridas")
-                .text(msg)
-                .owner(main)
-                .hideAfter(Duration.seconds(3))
-                .darkStyle()
-                .position(Pos.TOP_RIGHT)
-                .showConfirm();
+        exibeMensagem(msg);
     }
 
     public void populaView(List<Cliente> clientes){
@@ -193,6 +193,66 @@ public class ClienteController implements Initializable {
 
     }
 
+    public boolean validarCampos(){
+
+            String nome =  txtNome.getText();
+            String cpf = txtCpf.getText();
+            String endereco =  txtEndereco.getText();
+            String sobrenome =  txtSobrenome.getText();
+            String telefone =  txtTelefone.getText();
+            String celular =  txtCelular.getText();
+            String rg =  txtRg.getText();
+            String email = txtEmail.getText();
+
+            List<Control>  controls = new ArrayList<>();
+            StringBuilder sb = new StringBuilder();
+            if(nome.equals("") || nome == null){
+                sb.append("O nome não pode ser vazio!. \n");
+                controls.add(txtNome);
+            }
+            if(cpf.equals("") || cpf == null){
+                sb.append("O CPF não pode ser vazio!. \n");
+                controls.add(txtCpf);
+            }
+        if(email.equals("") || email == null){
+            sb.append("O E-mail não pode ser vazio!. \n");
+            controls.add(txtEmail);
+        }
+            exibeMensagem(sb.toString());
+            animaCamposValidados(controls);
+
+            return sb.toString().isEmpty();
+    }
+
+    public void animaCamposValidados(List<Control> controls) {
+        controls.forEach(control -> {
+            RotateTransition rotateTransition = new RotateTransition(Duration.millis(60), control);
+            rotateTransition.setFromAngle(-4);
+            rotateTransition.setToAngle(4);
+            rotateTransition.setCycleCount(8);
+            rotateTransition.setAutoReverse(true);
+            rotateTransition.setOnFinished((ActionEvent event1) ->{
+                control.setRotate(0);
+            });
+            rotateTransition.play();
+        });
+        if(!controls.isEmpty()){
+            controls.get(0).requestFocus();
+        }
+    }
+
+    public void exibeMensagem(String msg){
+        Notifications.create()
+                .title("Atenção")
+                .text(String.valueOf(msg))
+                .owner(main)
+                .hideAfter(Duration.seconds(3))
+                .darkStyle()
+                .position(Pos.TOP_RIGHT)
+                .showInformation();
+
+
+    }
 
 }
 
