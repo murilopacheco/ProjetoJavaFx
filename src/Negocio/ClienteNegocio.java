@@ -1,8 +1,12 @@
 package Negocio;
 
+import Dao.ClienteDao;
 import Model.Cliente;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -10,10 +14,13 @@ import java.util.regex.Pattern;
  * Created by muril on 16/03/2017.
  */
 public class ClienteNegocio {
+    ClienteDao clienteDao = new ClienteDao();
 
-    public String salvar(Cliente cliente) {
+    public String salvar(Cliente cliente) throws SQLException {
+
         boolean cpfValido = false;
         boolean emailValido = false;
+        String salvo = "falha";
         StringBuilder sb = new StringBuilder();
         cpfValido = validaCPF(cliente.getCpf());
         if (!cpfValido) {
@@ -24,13 +31,43 @@ public class ClienteNegocio {
             sb.append("email inválido. \n");
         }
         if (sb.toString().isEmpty()) {
-            //aqui eu gravo...
+          salvo = clienteDao.salvar(cliente);
         } else {
-            sb.append("salvo");
+            sb.append(salvo);
             return sb.toString();
         }
-        sb.append("salvo");
+        sb.append(salvo);
         return sb.toString();
+    }
+
+    public String editar(Cliente cliente) throws SQLException {
+
+        boolean cpfValido = false;
+        boolean emailValido = false;
+        String salvo = "falha";
+        StringBuilder sb = new StringBuilder();
+        cpfValido = validaCPF(cliente.getCpf());
+        if (!cpfValido) {
+            sb.append("cpf inválido. \n");
+        }
+        emailValido = isEmailValid(cliente.getEmail());
+        if (!emailValido) {
+            sb.append("email inválido. \n");
+        }
+        if (sb.toString().isEmpty()) {
+            salvo = clienteDao.Editar(cliente);
+        } else {
+            sb.append(salvo);
+            return sb.toString();
+        }
+        sb.append(salvo);
+        return sb.toString();
+    }
+
+    public List<Cliente> listarCliente(){
+        List<Cliente> clientes = new ArrayList<Cliente>();
+        clientes = clienteDao.listarClientes();
+        return clientes;
     }
 
 

@@ -1,22 +1,31 @@
 package Controller;
 
+import Model.Cliente;
 import Model.Pet;
+import Negocio.ClienteNegocio;
+import Negocio.PetNegocio;
 import Service.PessoaService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.Window;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Stream;
 
 /**
  * Created by murilo on 07/02/2017.
@@ -26,6 +35,13 @@ public class PetController implements Initializable {
         Pet pet =  new Pet();
         ObservableList<Pet> petView = null;
         List<Pet> pets = new ArrayList<>();
+        ClienteNegocio clienteNegocio = new ClienteNegocio();
+        List<Cliente> clientes = new ArrayList<Cliente>();
+        String filter = "";
+        private ObservableList<String> originalItems;
+        Cliente clienteSelecionado = new Cliente();
+        PetNegocio petNegocio = new PetNegocio();
+        List<Pet> petsPorCliente = new ArrayList<Pet>();
 
 
     @FXML
@@ -58,6 +74,8 @@ public class PetController implements Initializable {
     private Button btnSalvar;
     @FXML
     private Button btnAlterar;
+    @FXML
+    private ComboBox<String> ComboCliente;
 
 
 
@@ -77,6 +95,18 @@ public class PetController implements Initializable {
         racas.add("Gato");
         racas.add("passaro");
         comboRaca.getItems().addAll(racas);
+
+        clientes = clienteNegocio.listarCliente();
+
+        clientes.forEach( cliente -> {
+            ComboCliente.getItems().add(cliente.getNome() + " " + cliente.getSobrenome());
+                }
+
+        );
+
+
+
+
     }
 
     // pega os valores entrados pelo usuário e adiciona no objeto conta
@@ -94,18 +124,15 @@ public class PetController implements Initializable {
     }
 
 
-    public void salvar(){
+    public void salvar() throws SQLException{
+        String salvo = "Falha";
         pet = new Pet();
         pegaValores(pet);
-        if(id == 0){
-            id = id + 1;
-        }
-        pet.setId(id);
-        id = id + 1;
-        pets.add(pet);
-        populaView(pets);
+        clienteSelecionado = SelecionaUsuario();
+        salvo = petNegocio.Salvar(pet, clienteSelecionado);
+        listarPets();
         limpaCampos();
-        mostrarMsg("Salvo com sucesso!");
+        mostrarMsg(salvo);
     }
 
     public void alterar() {
@@ -128,6 +155,7 @@ public class PetController implements Initializable {
         clRaca.setCellValueFactory(new PropertyValueFactory<Pet, String>("raca"));
         clSexo.setCellValueFactory(new PropertyValueFactory<Pet, String>("sexo"));
         petView = FXCollections.observableArrayList(pets);
+        tblPets.getItems().removeAll();
         tblPets.setItems(petView);
     }
     public void limpaCampos(){
@@ -168,4 +196,77 @@ public class PetController implements Initializable {
             groupSexo.selectToggle(radioFemea);
         }
     }
+
+    public void AutoCompleteCliente(Event e){
+        originalItems = FXCollections.observableArrayList(ComboCliente.getItems());
+        ComboCliente.setTooltip(new Tooltip());
+        ComboCliente.setOnKeyPressed(this::handleOnKeyPressed);
+        ComboCliente.setOnHidden(this::handleOnHiding);
+    }
+
+    public void handleOnHiding(Event e) {
+        filter = "";
+        ComboCliente.getTooltip().hide();
+        String s = ComboCliente.getSelectionModel().getSelectedItem();
+        ComboCliente.getItems().setAll(originalItems);
+        ComboCliente.getSelectionModel().select(s);
+    }
+
+    public void handleOnKeyPressed(KeyEvent e) {
+        ObservableList<String> filteredList = FXCollections.observableArrayList();
+        KeyCode code = e.getCode();
+
+        if (code.isLetterKey()) {
+            filter += e.getText();
+        }
+        if (code == KeyCode.BACK_SPACE && filter.length() > 0) {
+            filter = filter.substring(0, filter.length() - 1);
+            ComboCliente.getItems().setAll(originalItems);
+        }
+        if (code == KeyCode.ESCAPE) {
+            filter = "";
+        }
+        if (filter.length() == 0) {
+            filteredList = originalItems;
+            ComboCliente.getTooltip().hide();
+        } else {
+            Stream<String> itens = ComboCliente.getItems().stream();
+            String txtUsr = filter.toString().toLowerCase();
+            itens.filter(el -> el.toString().toLowerCase().contains(txtUsr)).forEach(filteredList::add);
+            ComboCliente.getTooltip().setText(txtUsr);
+            Window stage = ComboCliente.getScene().getWindow();
+            double posX = stage.getX() + ComboCliente.getBoundsInParent().getMinX();
+            double posY = stage.getY() + ComboCliente.getBoundsInParent().getMinY();
+            ComboCliente.getTooltip().show(stage, posX, posY);
+            ComboCliente.show();
+        }
+        ComboCliente.getItems().setAll(filteredList);
+    }
+
+    public Cliente SelecionaUsuario(){
+
+        List<Cliente> clienteList = new ArrayList<Cliente>();
+        String nome = ComboCliente.getSelectionModel().getSelectedItem();
+        clientes.forEach( (Cliente cliente) -> {
+           String nomeCompleto = cliente.getNome()+ " " + cliente.getSobrenome();
+           if(nome.equals(nomeCompleto)){
+               clienteList.add(cliente);
+           }
+                }
+
+        );
+        clienteSelecionado = clienteList.get(0);
+        return  clienteSelecionado;
+    }
+    public void listarPets(){
+        Cliente cliente = new Cliente();
+        cliente = SelecionaUsuario();
+        petsPorCliente = petNegocio.listarPetsPorCliente(cliente);
+        if(!petsPorCliente.isEmpty()) {
+            populaView(petsPorCliente);
+        }else{
+            tblPets.getItems().clear();
+        }
+    }
+
 }

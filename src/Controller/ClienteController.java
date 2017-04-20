@@ -2,7 +2,6 @@ package Controller;
 
 import Model.Cliente;
 import Negocio.ClienteNegocio;
-import Service.PessoaService;
 import javafx.animation.RotateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,9 +14,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 import sample.Main;
-import teste.TesteControle;
+
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -80,6 +80,8 @@ public class ClienteController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         txtId.setVisible(false);
         cliente = new Cliente();
+        clientes = listarClientes();
+        populaView(clientes);
 
     }
 
@@ -124,7 +126,7 @@ public class ClienteController implements Initializable {
     }
 
     @FXML
-    private void salvar(){
+    private void salvar() throws SQLException {
         String validar;
         boolean validacao = false;
         cliente = new Cliente();
@@ -132,34 +134,24 @@ public class ClienteController implements Initializable {
         validacao = validarCampos();
         if(validacao) {
             if (cliente.getId() == 0) {
-                Random gerador = new Random();
-                cliente.setId(gerador.nextInt());
                  validar = clienteNegocio.salvar(cliente);
                 if(validar.equals("salvo")) {
-                    clientes.add(cliente);
+                    clientes = listarClientes();
                     populaView(clientes);
 
-                    String msg = "Objeto inserido na tabela!";
+                    String msg = "Cliente inserido!";
                     exibeMensagem(msg);
                     limpaCampos();
                 }else{
                     exibeMensagem(validar);
                 }
             } else {
-                List<Cliente> clientesAuxRemove = new ArrayList<Cliente>();
-                for (Cliente clienteLista : clientes) {
-                    if (clienteLista.getId() == cliente.getId()) {
-                        clientesAuxRemove.add(clienteLista);
-                    }
-                }
-                clientes.removeAll(clientesAuxRemove);
-                validar = clienteNegocio.salvar(cliente);
-                if (validar.equals("salvar")) {
-                    clientes.add(cliente);
+                validar = clienteNegocio.editar(cliente);
+                if (validar.equals("salvo")) {
+                    clientes = listarClientes();
                     populaView(clientes);
-
                     String msg = "Objeto editado com sucesso!";
-                   exibeMensagem(msg);
+                    exibeMensagem(msg);
 
                     limpaCampos();
                     btnAcao.setText("Salvar");
@@ -192,6 +184,10 @@ public class ClienteController implements Initializable {
         tabelaClientes.setItems(clientesView);
 
     }
+    public List<Cliente> listarClientes(){
+        clientes = clienteNegocio.listarCliente();
+        return clientes;
+    }
 
     public boolean validarCampos(){
 
@@ -206,6 +202,7 @@ public class ClienteController implements Initializable {
 
             List<Control>  controls = new ArrayList<>();
             StringBuilder sb = new StringBuilder();
+            sb.append("");
             if(nome.equals("") || nome == null){
                 sb.append("O nome não pode ser vazio!. \n");
                 controls.add(txtNome);
@@ -214,12 +211,14 @@ public class ClienteController implements Initializable {
                 sb.append("O CPF não pode ser vazio!. \n");
                 controls.add(txtCpf);
             }
-        if(email.equals("") || email == null){
-            sb.append("O E-mail não pode ser vazio!. \n");
-            controls.add(txtEmail);
-        }
-            exibeMensagem(sb.toString());
-            animaCamposValidados(controls);
+            if(email.equals("") || email == null){
+                sb.append("O E-mail não pode ser vazio!. \n");
+                controls.add(txtEmail);
+            }
+            if(!sb.equals("")) {
+                exibeMensagem(sb.toString());
+                animaCamposValidados(controls);
+            }
 
             return sb.toString().isEmpty();
     }

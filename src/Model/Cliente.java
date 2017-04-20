@@ -3,6 +3,8 @@ package Model;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+import java.util.List;
+
 /**
  * Created by murilo on 23/02/2017.
  */
@@ -16,6 +18,7 @@ public class Cliente {
     private final SimpleStringProperty telefone = new SimpleStringProperty();
     private final SimpleStringProperty celular = new SimpleStringProperty();
     private final SimpleStringProperty email = new SimpleStringProperty();
+    private List<Pet> pets;
 
     public Cliente(String cpf, String nome, String telefone, String celular, String endereco, String rg) {
         this.nome.set(nome);
@@ -137,5 +140,13 @@ public class Cliente {
 
     public void setEmail(String email) {
         this.email.set(email);
+    }
+
+    public List<Pet> getPets() {
+        return pets;
+    }
+
+    public void setPets(List<Pet> pets) {
+        this.pets = pets;
     }
 }
