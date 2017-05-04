@@ -50,6 +50,15 @@ public class InicialController implements Initializable {
         //  Scene cena = new Scene(fxmlParent, 600, 400);
         //  ((Stage)paneInicial.getScene().getWindow()).setScene(cena);
     }
+    public void abrirJanelaVisita(ActionEvent t) throws IOException {
+        URL arquivoFXML;
+        arquivoFXML = getClass().getResource("/Visao/visita.fxml");
+        Parent fxmlParent =(Parent) FXMLLoader.load(arquivoFXML);
+        paneInicial.getChildren().clear();
+        paneInicial.getChildren().add(fxmlParent);
+        //  Scene cena = new Scene(fxmlParent, 600, 400);
+        //  ((Stage)paneInicial.getScene().getWindow()).setScene(cena);
+    }
 
 
 

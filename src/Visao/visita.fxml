@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.VisitaController">
+   <top>
+      <Label text="VISITAS" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+   </top>
+   <center>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="27.0" layoutY="24.0" text="Data da Visita:" />
+            <DatePicker fx:id="dtDataVisita" layoutX="112.0" layoutY="18.0" />
+            <Label layoutX="63.0" layoutY="57.0" text="Cliente:" />
+            <ComboBox fx:id="comboCliente" layoutX="112.0" layoutY="53.0" prefHeight="25.0" prefWidth="439.0" onAction="#listarPets" />
+            <ComboBox fx:id="comboPet" layoutX="112.0" layoutY="95.0" prefHeight="25.0" prefWidth="440.0" />
+            <Label layoutX="81.0" layoutY="101.0" text="Pet:" />
+            <Label layoutX="19.0" layoutY="150.0" text="Anaminese:" />
+            <TextArea fx:id="txtAnaminese" layoutX="87.0" layoutY="132.0" prefHeight="73.0" prefWidth="500.0" />
+            <TextArea fx:id="txtExames" layoutX="87.0" layoutY="224.0" prefHeight="125.0" prefWidth="500.0" />
+            <Label layoutX="38.0" layoutY="244.0" prefHeight="17.0" prefWidth="49.0" text="Exames/" />
+            <Label layoutX="4.0" layoutY="260.0" text="Medicamentos:" />
+         </children>
+      </Pane>
+   </center>
+</BorderPane>

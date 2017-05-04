@@ -5,10 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity"
-            maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.InicialController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.InicialController">
    <children>
       <BorderPane fx:id="bPaneInicial" layoutX="-2.0" layoutY="-2.0" prefHeight="600.0" prefWidth="800.0">
          <top>
@@ -19,10 +16,9 @@
                <menus>
                 <Menu mnemonicParsing="false" text="Cadastros">
                   <items>
-                      <MenuItem fx:id="menuCadastrarCliente" mnemonicParsing="false"
-                                onAction="#abrirJanelaCliente" text="Cadastrar Clientes" />
-                      <MenuItem fx:id="menuCadastrarPet" mnemonicParsing="false"
-                                onAction="#abrirJanelaPet" text="Cadastrar Pets" />
+                      <MenuItem fx:id="menuCadastrarCliente" mnemonicParsing="false" onAction="#abrirJanelaCliente" text="Cadastrar Clientes" />
+                      <MenuItem fx:id="menuCadastrarPet" mnemonicParsing="false" onAction="#abrirJanelaPet" text="Cadastrar Pets" />
+                        <MenuItem fx:id="menuCadastrarVisita" mnemonicParsing="false" onAction="#abrirJanelaVisita" text="Cadastrar Visitas" />
                         <MenuItem mnemonicParsing="false" text="Fechar" />
 
                         </items>
