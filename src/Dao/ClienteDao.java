@@ -78,26 +78,6 @@ public class ClienteDao {
         return salvo;
     }
 
-    public String Editar(Cliente cliente) {
-        String deletado = "falha";
-        try {
-            con.setAutoCommit(false);
-            stmt = con.prepareStatement(sqlDeletar);
-
-            stmt.setInt(1, cliente.getId());
-
-            stmt.executeUpdate();
-            con.commit();
-            deletado = "deletado";
-
-        } catch (SQLException e) {
-            System.out.println("Erro na exclusão :" + e.getMessage());
-            deletado = e.getMessage();
-        }
-
-        return deletado;
-    }
-
     public List<Cliente> listarClientes() {
         List<Cliente> list = new ArrayList<Cliente>();
         ResultSet res = null;

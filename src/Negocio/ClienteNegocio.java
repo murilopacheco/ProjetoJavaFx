@@ -55,7 +55,7 @@ public class ClienteNegocio {
             sb.append("email inválido. \n");
         }
         if (sb.toString().isEmpty()) {
-            salvo = clienteDao.Editar(cliente);
+            salvo = clienteDao.editar(cliente);
         } else {
             sb.append(salvo);
             return sb.toString();

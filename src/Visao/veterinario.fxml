@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.VeterinarioController">
+   <center>
+      <Pane fx:id="panePrincipal" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="53.0" layoutY="26.0" text="Nome:" />
+            <TextField fx:id="txtNome" layoutX="99.0" layoutY="15.0" prefHeight="25.0" prefWidth="376.0" />
+            <Label layoutX="53.0" layoutY="64.0" text="CRMV:" />
+            <TextField fx:id="txtCRMV" layoutX="99.0" layoutY="52.0" prefHeight="25.0" prefWidth="171.0" />
+            <Label layoutX="15.0" layoutY="97.0" text="Especialidade:" />
+            <TextField fx:id="txtEspecialidade" layoutX="99.0" layoutY="84.0" prefHeight="25.0" prefWidth="376.0" />
+            <Label layoutX="281.0" layoutY="61.0" text="Sexo:" />
+            <HBox layoutX="316.0" layoutY="54.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="19.0" prefWidth="160.0">
+               <children>
+                  <RadioButton fx:id="rbMasculino" alignment="CENTER_LEFT" mnemonicParsing="false" selected="true" text="Masculino">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="sexo" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="rbFeminino" alignment="CENTER_LEFT" mnemonicParsing="false" text="Feminino" toggleGroup="$sexo" />
+               </children>
+            </HBox>
+            <Button fx:id="btnSalvar" layoutX="396.0" layoutY="123.0" mnemonicParsing="false" onAction="#salvar" text="Salvar" />
+            <TableView fx:id="tblVeterinarios" layoutX="6.0" layoutY="167.0" onMouseClicked="#edit" prefHeight="200.0" prefWidth="590.0">
+              <columns>
+                <TableColumn fx:id="clCodigo" prefWidth="50.0" text="CODIGO" />
+                <TableColumn fx:id="clNome" prefWidth="168.0" text="NOME" />
+                  <TableColumn fx:id="clCRMV" prefWidth="83.0" text="CRMV" />
+                  <TableColumn fx:id="clEspecialidade" prefWidth="198.0" text="ESPECIALIDADE" />
+                  <TableColumn fx:id="clSexo" prefWidth="90.0" text="SEXO" />
+              </columns>
+            </TableView>
+         </children>
+      </Pane>
+   </center>
+   <top>
+      <Label alignment="TOP_LEFT" text="CADASTRO DE VETERINARIO" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+   </top>
+</BorderPane>

@@ -6,6 +6,7 @@ import Model.Veterinario;
 import Model.Visita;
 import Negocio.ClienteNegocio;
 import Negocio.PetNegocio;
+import Negocio.VeterinarioNegocio;
 import Negocio.VisitaNegocio;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,9 +22,7 @@ import org.controlsfx.control.Notifications;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * Created by murilo on 04/05/2017.
@@ -87,7 +86,6 @@ public class VisitaController implements Initializable {
         pegaValores(visita);
         salvo = visitaNegocio.Salvar(visita, pet, veterinario);
         if(salvo.equals("salvo")) {
-            listarPets();
             listarVisitasPorPets();
             limpaCampos();
             mostrarMsg("salvo com sucesso!");
@@ -116,11 +114,12 @@ public class VisitaController implements Initializable {
         visita.setExamesEMedicamentos(txtExames.getText());
 
         //seta os dados do veterinário para testes ***apagar depois
-        veterinario.setNome("veterinario");
-        veterinario.setCRMV("1234");
-        veterinario.setEspecialidade("ortopedista");
-        veterinario.setSexo("masculino");
-        veterinario.setId(2);
+        VeterinarioNegocio veterinarioNegocio = new VeterinarioNegocio();
+        List<Veterinario> veterinarios = new ArrayList<Veterinario>();
+        veterinarios = veterinarioNegocio.listarVeterinarios();
+        Random r = new Random();
+        Collections.shuffle(veterinarios);
+        veterinario = veterinarios.get(0);
         if (veterinario != null){
             visita.setId_veterinario(veterinario.getId());
         }

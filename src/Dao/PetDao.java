@@ -24,7 +24,7 @@ public class PetDao {
     }
 
     String sqlSalvar = "INSERT INTO petshop.pets" +
-            "(nome, cor, raca,dataNascimento ,sexo, idCliente)" +
+            "(nome, cor, raca,dataNascimento ,sexo, id_Cliente)" +
             "VALUES(?,?,?,?,?,?)" ;
 
     String sqlListarPorCliente = "SELECT * FROM pets WHERE id_Cliente = ?";
@@ -63,6 +63,7 @@ public class PetDao {
                     salvo = "\"Erro na transação!\"+e2";
                 }
             }
+            System.out.println("Erro na execução:" + e.getMessage());
         } finally {
             if (stmt != null) {
                 stmt.close();
