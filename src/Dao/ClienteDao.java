@@ -23,10 +23,15 @@ public class ClienteDao {
     }
 
 
-
     String sqlSalvar = "INSERT INTO petshop.clientes" +
-      "(nome,sobrenome, CPF,rg,telefone,celular,endereco,email)" +
-      "VALUES(?,?,?,?,?,?,?,?)" ;
+            "(nome,sobrenome, CPF,rg,telefone,celular,endereco,email)" +
+            "VALUES(?,?,?,?,?,?,?,?)";
+
+    String sqlEditar = "UPDATE clientes SET nome = ?, sobrenome = ?," +
+            "cpf = ?, rg = ?, telefone = ?, celular = ?, endereco = ?," +
+            "email = ?  WHERE id = ?";
+
+    String sqlDeletar = "DELETE from clientes where id = ?";
 
 
     public String salvar(Cliente cliente) throws SQLException {
@@ -53,13 +58,13 @@ public class ClienteDao {
             con.commit();
             salvo = "salvo";
 
-        } catch (SQLException e ) {
+        } catch (SQLException e) {
             if (con != null) {
                 try {
                     System.err.print("Rollback efetuado na transação");
                     con.rollback();
-                } catch(SQLException e2) {
-                    System.err.print("Erro na transação!"+e2);
+                } catch (SQLException e2) {
+                    System.err.print("Erro na transação!" + e2);
                     salvo = "\"Erro na transação!\"+e2";
                 }
             }
@@ -73,34 +78,24 @@ public class ClienteDao {
         return salvo;
     }
 
-    public String  Editar(Cliente cliente) {
-        String salvo = "falha";
+    public String Editar(Cliente cliente) {
+        String deletado = "falha";
         try {
-            String sql;
-            sql  = "UPDATE clientes SET nome = ?, sobrenome = ?, cpf = ?, rg = ? , telefone = ?,celular = ?, endereco = ?, email = ?";
-            sql += "WHERE id = ?";
+            con.setAutoCommit(false);
+            stmt = con.prepareStatement(sqlDeletar);
 
-            stmt = con.prepareStatement(sql);
-
-            stmt.setString(1, cliente.getNome());
-            stmt.setString(2, cliente.getSobrenome());
-            stmt.setString(3, cliente.getCpf());
-            stmt.setString(4, cliente.getRg());
-            stmt.setString(5, cliente.getTelefone());
-            stmt.setString(6, cliente.getCelular());
-            stmt.setString(7, cliente.getEndereco());
-            stmt.setString(8, cliente.getEmail());
-            stmt.setInt(9, cliente.getId());
-
+            stmt.setInt(1, cliente.getId());
 
             stmt.executeUpdate();
-            salvo = "salvo";
+            con.commit();
+            deletado = "deletado";
 
         } catch (SQLException e) {
-            System.out.println("Erro na alteracao:" + e.getMessage());
+            System.out.println("Erro na exclusão :" + e.getMessage());
+            deletado = e.getMessage();
         }
 
-        return salvo;
+        return deletado;
     }
 
     public List<Cliente> listarClientes() {
@@ -111,7 +106,7 @@ public class ClienteDao {
             stm = con.createStatement();
             res = stm.executeQuery("SELECT * FROM clientes");
 
-            while (res.next()){
+            while (res.next()) {
 
                 Cliente cliente = new Cliente();
 
@@ -127,10 +122,64 @@ public class ClienteDao {
 
                 list.add(cliente);
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("Erro na consulta1:" + e.getMessage());
         }
         return list;
+    }
+    public String editar(Cliente cliente) throws SQLException {
+        String salvo = "falha";
+        try {
+            con.setAutoCommit(false);
+            stmt = con.prepareStatement(sqlEditar);
+
+            stmt.setString(1, cliente.getNome());
+            stmt.setString(2, cliente.getSobrenome());
+            stmt.setString(3, cliente.getCpf());
+            stmt.setString(4, cliente.getRg());
+            stmt.setString(5, cliente.getTelefone());
+            stmt.setString(6, cliente.getCelular());
+            stmt.setString(7, cliente.getEndereco());
+            stmt.setString(8, cliente.getEmail());
+            stmt.setInt(9, cliente.getId());
+
+            stmt.executeUpdate();
+            con.commit();
+            salvo = "salvo";
+
+
+        }catch (Exception e){
+            System.out.println("erro ao atualizar " + e.getMessage());
+            salvo = e.getMessage();
+        }
+        return salvo;
+    }
+
+    public String deletar(Cliente cliente) throws SQLException {
+        String salvo = "falha";
+        try {
+            con.setAutoCommit(false);
+            stmt = con.prepareStatement(sqlEditar);
+
+            stmt.setString(1, cliente.getNome());
+            stmt.setString(2, cliente.getSobrenome());
+            stmt.setString(3, cliente.getCpf());
+            stmt.setString(4, cliente.getRg());
+            stmt.setString(5, cliente.getTelefone());
+            stmt.setString(6, cliente.getCelular());
+            stmt.setString(7, cliente.getEndereco());
+            stmt.setString(8, cliente.getEmail());
+            stmt.setInt(9, cliente.getId());
+
+            stmt.executeUpdate();
+            con.commit();
+            salvo = "salvo";
+
+
+        }catch (Exception e){
+            System.out.println("erro ao atualizar " + e.getMessage());
+            salvo = e.getMessage();
+        }
+        return salvo;
     }
 }

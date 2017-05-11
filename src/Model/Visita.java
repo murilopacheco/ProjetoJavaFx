@@ -12,8 +12,10 @@ public class Visita {
     private int id_pet;
     private int id_veterinario;
     private LocalDate dataVisita;
-    private List<String> examesEMedicamentos;
+    private String examesEMedicamentos;
     private String anaminese;
+    // não Persistente
+    private String nomeVeterinario;
 
     public int getId() {
         return id;
@@ -47,11 +49,11 @@ public class Visita {
         this.dataVisita = dataVisita;
     }
 
-    public List<String> getExamesEMedicamentos() {
+    public String getExamesEMedicamentos() {
         return examesEMedicamentos;
     }
 
-    public void setExamesEMedicamentos(List<String> examesEMedicamentos) {
+    public void setExamesEMedicamentos(String examesEMedicamentos) {
         this.examesEMedicamentos = examesEMedicamentos;
     }
 
@@ -61,5 +63,13 @@ public class Visita {
 
     public void setAnaminese(String anaminese) {
         this.anaminese = anaminese;
+    }
+
+    public String getNomeVeterinario() {
+        return nomeVeterinario;
+    }
+
+    public void setNomeVeterinario(String nomeVeterinario) {
+        this.nomeVeterinario = nomeVeterinario;
     }
 }

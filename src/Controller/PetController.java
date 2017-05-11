@@ -97,16 +97,13 @@ public class PetController implements Initializable {
         comboRaca.getItems().addAll(racas);
 
         clientes = clienteNegocio.listarCliente();
-
-        clientes.forEach( cliente -> {
-            ComboCliente.getItems().add(cliente.getNome() + " " + cliente.getSobrenome());
-                }
-
-        );
-
-
-
-
+        if(clientes != null) {
+            clientes.forEach(cliente -> {
+                        ComboCliente.getItems().add(
+                         cliente.getNome() + " " + cliente.getSobrenome());
+                    }
+            );
+        }
     }
 
     // pega os valores entrados pelo usuário e adiciona no objeto conta
@@ -267,6 +264,16 @@ public class PetController implements Initializable {
         }else{
             tblPets.getItems().clear();
         }
+    }
+
+    public Cliente SelecionaCliente(){
+        String nome = ComboCliente.getSelectionModel().getSelectedItem();
+        clientes.forEach(cliente ->{
+             if(nome.equals(cliente.getNome() + " " + cliente.getSobrenome())){
+                 clienteSelecionado = cliente;
+             }
+        } );
+        return clienteSelecionado;
     }
 
 }

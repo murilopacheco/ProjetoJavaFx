@@ -27,7 +27,7 @@ public class PetDao {
             "(nome, cor, raca,dataNascimento ,sexo, idCliente)" +
             "VALUES(?,?,?,?,?,?)" ;
 
-    String sqlListarPorCliente = "SELECT * FROM pets WHERE idCliente = ?";
+    String sqlListarPorCliente = "SELECT * FROM pets WHERE id_Cliente = ?";
 
 
     public String salvar(Pet pet, Cliente cliente) throws SQLException {

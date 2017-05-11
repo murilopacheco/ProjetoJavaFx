@@ -2,16 +2,25 @@ package Controller;
 
 import Model.Cliente;
 import Model.Pet;
+import Model.Veterinario;
+import Model.Visita;
 import Negocio.ClienteNegocio;
 import Negocio.PetNegocio;
+import Negocio.VisitaNegocio;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
 import java.net.URL;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -25,12 +34,17 @@ public class VisitaController implements Initializable {
 
     List<Pet> pets = new ArrayList<>();
     ClienteNegocio clienteNegocio = new ClienteNegocio();
+    VisitaNegocio visitaNegocio = new VisitaNegocio();
     List<Cliente> clientes = new ArrayList<Cliente>();
     String filter = "";
-    private ObservableList<String> originalItems;
-    Cliente clienteSelecionado = new Cliente();
+    Cliente cliente = new Cliente();
     PetNegocio petNegocio = new PetNegocio();
     Pet pet = new Pet();
+    Visita visita;
+    Veterinario veterinario = new Veterinario();
+    List<Visita> visitas = new ArrayList<Visita>();
+    ObservableList<Visita> visitasView ;
+
 
     @FXML
     private TextArea txtAnaminese;
@@ -42,6 +56,18 @@ public class VisitaController implements Initializable {
     private ComboBox comboCliente;
     @FXML
     private ComboBox comboPet;
+    @FXML
+    private Pane panePrincipal;
+    @FXML
+    private TableView tblVisitas;
+    @FXML
+    private TableColumn<Visita, LocalDate> clDataVisita;
+    @FXML
+    private TableColumn<Visita, String > clVeterinario;
+    @FXML
+    private Button btnSalvar;
+    @FXML
+    private Button btnCancelar;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -52,21 +78,69 @@ public class VisitaController implements Initializable {
                 }
 
         );
+        dtDataVisita.setValue(LocalDate.now());
     }
 
-    public void listarPets(){
-        Cliente cliente = new Cliente();
-        cliente = SelecionaUsuario();
+    public void salvar() throws SQLException {
+        String salvo = "Falha";
+        visita = new Visita();
+        pegaValores(visita);
+        salvo = visitaNegocio.Salvar(visita, pet, veterinario);
+        if(salvo.equals("salvo")) {
+            listarPets();
+            listarVisitasPorPets();
+            limpaCampos();
+            mostrarMsg("salvo com sucesso!");
+        }
+
+
+    }
+
+    private void limpaCampos() {
+        txtAnaminese.setText("");
+        txtExames.setText("");
+        dtDataVisita.setValue(LocalDate.now());
+    }
+
+    private void pegaValores(Visita visita) {
+        try{
+            selecionaPet();
+        }catch (NullPointerException e){
+            System.out.println(e.getMessage());
+        }
+        if(pet != null) {
+            visita.setId_pet(pet.getId());
+        }
+        visita.setDataVisita(LocalDate.now());
+        visita.setAnaminese(txtAnaminese.getText());
+        visita.setExamesEMedicamentos(txtExames.getText());
+
+        //seta os dados do veterinário para testes ***apagar depois
+        veterinario.setNome("veterinario");
+        veterinario.setCRMV("1234");
+        veterinario.setEspecialidade("ortopedista");
+        veterinario.setSexo("masculino");
+        veterinario.setId(2);
+        if (veterinario != null){
+            visita.setId_veterinario(veterinario.getId());
+        }
+
+    }
+
+    public void listarPets() {
+        SelecionaCliente();
+        pets.clear();
         pets = petNegocio.listarPetsPorCliente(cliente);
-        if(!pets.isEmpty()) {
-           pets.forEach(pet -> {
-               comboPet.getItems().add(pet.getNome());
-           });
+        comboPet.getItems().clear();
+        if (!pets.isEmpty()) {
+            pets.forEach(p -> {
+                comboPet.getItems().add(p.getNome());
+            });
         }
     }
 
-    public Cliente SelecionaUsuario(){
-
+    public void SelecionaCliente(){
+        comboPet.getItems().clear();
         List<Cliente> clienteList = new ArrayList<Cliente>();
         String nome = (String) comboCliente.getSelectionModel().getSelectedItem();
         clientes.forEach( (Cliente cliente) -> {
@@ -77,14 +151,43 @@ public class VisitaController implements Initializable {
                 }
 
         );
-        clienteSelecionado = clienteList.get(0);
-        return  clienteSelecionado;
+        cliente = clienteList.get(0);
     }
-    public void SelecionaPet(){
-        for (Pet p : pets) {
-            if(comboPet.getSelectionModel().getSelectedItem().equals(p.getNome())){
-                pet = p;
+    public void selecionaPet(){
+        if(!pets.isEmpty() && pets != null) {
+            for (Pet p : pets) {
+                if (comboPet.getSelectionModel().getSelectedItem().equals(p.getNome())) {
+                    pet = p;
+                }
             }
         }
     }
+
+    public void mostrarMsg(String msg){
+        Notifications.create()
+                .title("Informação")
+                .text(msg)
+                .owner(panePrincipal)
+                .hideAfter(Duration.seconds(3))
+                .darkStyle()
+                .position(Pos.TOP_RIGHT)
+                .showConfirm();
+    }
+
+    public void listarVisitasPorPets(){
+        selecionaPet();
+        visitas = new ArrayList<Visita>();
+        visitas = visitaNegocio.listarVisitasPorPet(pet);
+        populaView(visitas);
+
+    }
+
+    public  void populaView(List<Visita> visitas){
+        clDataVisita.setCellValueFactory(new PropertyValueFactory<Visita, LocalDate>("dataVisita"));
+        clVeterinario.setCellValueFactory(new PropertyValueFactory<Visita, String>("nomeVeterinario"));
+        visitasView = FXCollections.observableArrayList(visitas);
+        tblVisitas.getItems().removeAll();
+        tblVisitas.setItems(visitasView);
+    }
 }
+
