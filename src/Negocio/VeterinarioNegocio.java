@@ -1,6 +1,6 @@
 package Negocio;
 
-import Dao.ClienteDao;
+import Dao.ClienteDAO;
 import Dao.VeterinarioDao;
 import Model.Cliente;
 import Model.Veterinario;

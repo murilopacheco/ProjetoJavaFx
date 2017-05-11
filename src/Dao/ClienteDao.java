@@ -10,14 +10,14 @@ import java.util.List;
 /**
  * Created by murilo on 06/04/2017.
  */
-public class ClienteDao {
+public class ClienteDAO {
 
     ConnectionFactory connection = null;
     private Connection con;
     private Statement stm;
     private PreparedStatement stmt;
 
-    public ClienteDao() {
+    public ClienteDAO() {
         ConnectionFactory cf = new ConnectionFactory();
         con = cf.getConnection();
     }
@@ -76,6 +76,26 @@ public class ClienteDao {
         }
 
         return salvo;
+    }
+
+    public String Editar(Cliente cliente) {
+        String deletado = "falha";
+        try {
+            con.setAutoCommit(false);
+            stmt = con.prepareStatement(sqlDeletar);
+
+            stmt.setInt(1, cliente.getId());
+
+            stmt.executeUpdate();
+            con.commit();
+            deletado = "deletado";
+
+        } catch (SQLException e) {
+            System.out.println("Erro na exclusão :" + e.getMessage());
+            deletado = e.getMessage();
+        }
+
+        return deletado;
     }
 
     public List<Cliente> listarClientes() {
