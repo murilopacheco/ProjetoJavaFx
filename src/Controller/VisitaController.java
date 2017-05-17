@@ -73,7 +73,8 @@ public class VisitaController implements Initializable {
         clientes = clienteNegocio.listarCliente();
 
         clientes.forEach( cliente -> {
-                    comboCliente.getItems().add(cliente.getNome() + " " + cliente.getSobrenome());
+                    comboCliente.getItems().add(
+                            cliente.getNome() + " " + cliente.getSobrenome());
                 }
 
         );
