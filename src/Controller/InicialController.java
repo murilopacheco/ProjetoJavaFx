@@ -31,6 +31,10 @@ public class InicialController implements Initializable {
     private Pane paneInicial;
     @FXML
     private  MenuItem menuCadastrarVeterinarios;
+    @FXML
+    private MenuItem menuCadastrarUsuario;
+
+
 
 
     public void abrirJanelaCliente(ActionEvent t) throws IOException {
@@ -64,6 +68,15 @@ public class InicialController implements Initializable {
     public void abrirJanelaVeterinario(ActionEvent t) throws IOException {
         URL arquivoFXML;
         arquivoFXML = getClass().getResource("/Visao/veterinario.fxml");
+        Parent fxmlParent =(Parent) FXMLLoader.load(arquivoFXML);
+        paneInicial.getChildren().clear();
+        paneInicial.getChildren().add(fxmlParent);
+        //  Scene cena = new Scene(fxmlParent, 600, 400);
+        //  ((Stage)paneInicial.getScene().getWindow()).setScene(cena);
+    }
+    public void abrirJanelaUsuario(ActionEvent t) throws IOException {
+        URL arquivoFXML;
+        arquivoFXML = getClass().getResource("/Visao/usuario.fxml");
         Parent fxmlParent =(Parent) FXMLLoader.load(arquivoFXML);
         paneInicial.getChildren().clear();
         paneInicial.getChildren().add(fxmlParent);

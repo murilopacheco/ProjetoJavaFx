@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Cliente {
     private SimpleIntegerProperty id = new SimpleIntegerProperty();
-    private final SimpleStringProperty nome = new SimpleStringProperty();
+    private SimpleStringProperty nome = new SimpleStringProperty();
     private final SimpleStringProperty sobrenome = new SimpleStringProperty();
     private final SimpleStringProperty rg = new SimpleStringProperty();
     private final SimpleStringProperty cpf = new SimpleStringProperty();
