@@ -95,6 +95,7 @@ public class InicialController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         menuPrincipal.setDisable(true);
         URL arquivoFXML;
         arquivoFXML = getClass().getResource("/Visao/login.fxml");
