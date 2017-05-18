@@ -1,5 +1,6 @@
 package sample;
 
+import Model.Usuario;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,10 @@ import java.net.URL;
 
 public class Main extends Application {
 
+    public static Usuario usuario;
+
+    Usuario  user = new Usuario();
+
     @Override
     public void start(Stage principal) throws Exception{
             VBox raiz = new VBox(10); // 1
@@ -29,6 +34,16 @@ public class Main extends Application {
             principal.show();
 
 
+    }
+
+
+
+    public void setarUsuario(Usuario u){
+        usuario = u;
+    }
+
+    public Usuario pegarUsuario(){
+        return usuario;
     }
 
     public void handle(ActionEvent evento) {

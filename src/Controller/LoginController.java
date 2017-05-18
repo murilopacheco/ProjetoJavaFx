@@ -18,6 +18,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
+import sample.Main;
 
 import java.io.IOException;
 import java.net.URL;
@@ -33,9 +34,8 @@ public class LoginController implements Initializable {
     InicialController inicialController = new InicialController();
     Usuario usuario = new Usuario();
     UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
-    private final BooleanProperty testeMenu = new SimpleBooleanProperty();
-    ObjectProperty<Node> display = new SimpleObjectProperty<>();
-    Usuario usuarioSessao = new Usuario();
+
+
 
     @FXML
     private TextField txtUsuario;
@@ -70,14 +70,15 @@ public class LoginController implements Initializable {
                 if (!(usuarioBanco.getSenha().equals(usuario.getSenha()))){
                     lbSenhaInvalida.setVisible(true);
                 }else{
-
+                    usuario =  setarUsuarioLogado(usuarioBanco);
+                    inicialController.setarUsuario(usuarioBanco);
                     URL arquivoFXML;
                     arquivoFXML = getClass().getResource("/Visao/inicial.fxml");
                     Parent fxmlParent =(Parent) FXMLLoader.load(arquivoFXML);
                     panePrincipal.getChildren().clear();
                     panePrincipal.getChildren().add(fxmlParent);
                    this.usuario = usuarioBanco;
-                   usuario =  setarUsuarioLogado(usuarioBanco);
+
 
 
                 }

@@ -1,28 +1,29 @@
 package Controller;
 
-import Model.Usuario;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.control.Control;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.layout.Pane;
+        import Model.Usuario;
+        import javafx.event.ActionEvent;
+        import javafx.fxml.FXML;
+        import javafx.fxml.FXMLLoader;
+        import javafx.fxml.Initializable;
+        import javafx.scene.Parent;
+        import javafx.scene.control.Control;
+        import javafx.scene.control.MenuBar;
+        import javafx.scene.control.MenuItem;
+        import javafx.scene.layout.Pane;
+        import sample.Main;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+        import java.io.IOException;
+        import java.net.URL;
+        import java.util.ArrayList;
+        import java.util.List;
+        import java.util.ResourceBundle;
 
 /**
  * Created by murilo on 24/02/2017.
  */
 public class InicialController implements Initializable {
 
-    Usuario usuario = new Usuario();
+    static Usuario usuario = new Usuario();
 
 
 
@@ -38,8 +39,7 @@ public class InicialController implements Initializable {
     private MenuBar menuPrincipal;
     @FXML
     private MenuItem menuRelatorios;
-    @FXML
-    private Usuario usuarioSessao;
+
 
 
 
@@ -97,11 +97,10 @@ public class InicialController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        LoginController loginController = new LoginController();
-        usuarioSessao = new Usuario();
-    //    usuarioSessao = loginController.setarUsuarioLogado(usuarioSessao);
+
+
         menuPrincipal.setDisable(false);
-    //    formataAcessoUsuario(usuario);
+        formataAcessoUsuario(usuario);
     }
     @FXML
     public void SetarUsuarioSessao(Usuario usuario){
@@ -114,5 +113,7 @@ public class InicialController implements Initializable {
             menuCadastrarVeterinarios.setDisable(true);
         }
     }
-
+    public static void setarUsuario(Usuario user){
+        usuario = user;
+    }
 }
