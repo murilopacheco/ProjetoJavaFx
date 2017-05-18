@@ -20,11 +20,12 @@ public class Main extends Application {
             VBox raiz = new VBox(10); // 1
             raiz.setAlignment(Pos.CENTER); // 2
          URL arquivoFXML;
-        arquivoFXML = getClass().getResource("/Visao/inicial.fxml");
+        arquivoFXML = getClass().getResource("/Visao/login.fxml");
         Parent fxmlParent =(Parent) FXMLLoader.load(arquivoFXML);
             Scene cena = new Scene(fxmlParent, 800, 600);
              principal.setTitle("Janela Principal");
              principal.setScene(cena);
+             principal.setResizable(true);
             principal.show();
 
 

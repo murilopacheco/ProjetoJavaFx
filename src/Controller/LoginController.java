@@ -3,18 +3,23 @@ package Controller;
 import Model.Usuario;
 import Negocio.UsuarioNegocio;
 import javafx.animation.RotateTransition;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.control.Control;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +33,9 @@ public class LoginController implements Initializable {
     InicialController inicialController = new InicialController();
     Usuario usuario = new Usuario();
     UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
-
+    private final BooleanProperty testeMenu = new SimpleBooleanProperty();
+    ObjectProperty<Node> display = new SimpleObjectProperty<>();
+    Usuario usuarioSessao = new Usuario();
 
     @FXML
     private TextField txtUsuario;
@@ -46,8 +53,8 @@ public class LoginController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
     }
-
-    public void login(){
+@FXML
+    public void login() throws IOException {
         Boolean validação = false;
         validação = validarCampos();
         Usuario usuarioBanco = new Usuario();
@@ -63,8 +70,16 @@ public class LoginController implements Initializable {
                 if (!(usuarioBanco.getSenha().equals(usuario.getSenha()))){
                     lbSenhaInvalida.setVisible(true);
                 }else{
-                    inicialController.SetarUsuarioSessao(usuarioBanco);
-                    usuario = new Usuario();
+
+                    URL arquivoFXML;
+                    arquivoFXML = getClass().getResource("/Visao/inicial.fxml");
+                    Parent fxmlParent =(Parent) FXMLLoader.load(arquivoFXML);
+                    panePrincipal.getChildren().clear();
+                    panePrincipal.getChildren().add(fxmlParent);
+                   this.usuario = usuarioBanco;
+                   usuario =  setarUsuarioLogado(usuarioBanco);
+
+
                 }
             }
         }else{
@@ -125,5 +140,10 @@ public class LoginController implements Initializable {
                 .showInformation();
 
 
+    }
+    public Usuario setarUsuarioLogado(Usuario usuario){
+        usuario = this.usuario;
+        inicialController.SetarUsuarioSessao(usuario);
+        return usuario;
     }
 }

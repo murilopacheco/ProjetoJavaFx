@@ -1,16 +1,11 @@
 package Negocio;
 
-import Dao.ClienteDAO;
 import Dao.VeterinarioDao;
-import Model.Cliente;
 import Model.Veterinario;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by muril on 16/03/2017.

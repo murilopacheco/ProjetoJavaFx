@@ -96,6 +96,9 @@ public class UsuarioDao {
         } catch (SQLException e) {
             System.out.println("Erro na consulta1:" + e.getMessage());
         }
-        return list.get(0);
+        if(!list.isEmpty()) {
+            return list.get(0);
+        }
+        else return new Usuario();
     }
 }

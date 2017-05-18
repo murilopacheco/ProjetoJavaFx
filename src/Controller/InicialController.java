@@ -2,25 +2,20 @@ package Controller;
 
 import Model.Usuario;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Control;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Created by murilo on 24/02/2017.
@@ -28,6 +23,8 @@ import java.util.logging.Logger;
 public class InicialController implements Initializable {
 
     Usuario usuario = new Usuario();
+
+
 
     @FXML
     private MenuItem menuCadastrarCliente;
@@ -39,21 +36,25 @@ public class InicialController implements Initializable {
     private MenuItem menuCadastrarUsuario;
     @FXML
     private MenuBar menuPrincipal;
+    @FXML
+    private MenuItem menuRelatorios;
+    @FXML
+    private Usuario usuarioSessao;
 
 
 
 
-    public void abrirJanelaCliente(ActionEvent t) throws IOException {
+    public void abrirJanelaCliente() throws IOException {
         URL arquivoFXML;
         arquivoFXML = getClass().getResource("/Visao/cliente.fxml");
         Parent fxmlParent =(Parent) FXMLLoader.load(arquivoFXML);
         paneInicial.getChildren().clear();
         paneInicial.getChildren().add(fxmlParent);
         //  Scene cena = new Scene(fxmlParent, 600, 400);
-      //  ((Stage)paneInicial.getScene().getWindow()).setScene(cena);
+        //  ((Stage)paneInicial.getScene().getWindow()).setScene(cena);
     }
 
-    public void abrirJanelaPet(ActionEvent t) throws IOException {
+    public void abrirJanelaPet() throws IOException {
         URL arquivoFXML;
         arquivoFXML = getClass().getResource("/Visao/pet.fxml");
         Parent fxmlParent =(Parent) FXMLLoader.load(arquivoFXML);
@@ -62,7 +63,7 @@ public class InicialController implements Initializable {
         //  Scene cena = new Scene(fxmlParent, 600, 400);
         //  ((Stage)paneInicial.getScene().getWindow()).setScene(cena);
     }
-    public void abrirJanelaVisita(ActionEvent t) throws IOException {
+    public void abrirJanelaVisita() throws IOException {
         URL arquivoFXML;
         arquivoFXML = getClass().getResource("/Visao/visita.fxml");
         Parent fxmlParent =(Parent) FXMLLoader.load(arquivoFXML);
@@ -71,7 +72,7 @@ public class InicialController implements Initializable {
         //  Scene cena = new Scene(fxmlParent, 600, 400);
         //  ((Stage)paneInicial.getScene().getWindow()).setScene(cena);
     }
-    public void abrirJanelaVeterinario(ActionEvent t) throws IOException {
+    public void abrirJanelaVeterinario() throws IOException {
         URL arquivoFXML;
         arquivoFXML = getClass().getResource("/Visao/veterinario.fxml");
         Parent fxmlParent =(Parent) FXMLLoader.load(arquivoFXML);
@@ -80,12 +81,13 @@ public class InicialController implements Initializable {
         //  Scene cena = new Scene(fxmlParent, 600, 400);
         //  ((Stage)paneInicial.getScene().getWindow()).setScene(cena);
     }
-    public void abrirJanelaUsuario(ActionEvent t) throws IOException {
+    public void abrirJanelaUsuario() throws IOException {
         URL arquivoFXML;
         arquivoFXML = getClass().getResource("/Visao/usuario.fxml");
         Parent fxmlParent =(Parent) FXMLLoader.load(arquivoFXML);
         paneInicial.getChildren().clear();
         paneInicial.getChildren().add(fxmlParent);
+
         //  Scene cena = new Scene(fxmlParent, 600, 400);
         //  ((Stage)paneInicial.getScene().getWindow()).setScene(cena);
     }
@@ -95,26 +97,22 @@ public class InicialController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        menuPrincipal.setDisable(true);
-        URL arquivoFXML;
-        arquivoFXML = getClass().getResource("/Visao/login.fxml");
-        Parent fxmlParent = null;
-        try {
-            fxmlParent = (Parent) FXMLLoader.load(arquivoFXML);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        paneInicial.getChildren().clear();
-        paneInicial.getChildren().add(fxmlParent);
-        //  Scene cena = new Scene(fxmlParent, 600, 400);
-        //  ((Stage)paneInicial.getScene().getWindow()).setScene(cena);
+        LoginController loginController = new LoginController();
+        usuarioSessao = new Usuario();
+    //    usuarioSessao = loginController.setarUsuarioLogado(usuarioSessao);
+        menuPrincipal.setDisable(false);
+    //    formataAcessoUsuario(usuario);
     }
+    @FXML
     public void SetarUsuarioSessao(Usuario usuario){
         this.usuario = usuario;
-        this.menuPrincipal.setDisable(false);
-        paneInicial.getChildren().clear();
 
+    }
+    public void formataAcessoUsuario(Usuario usuario){
+        if(usuario.getTipo().equals("veterinário")){
+            menuCadastrarUsuario.setDisable(true);
+            menuCadastrarVeterinarios.setDisable(true);
+        }
     }
 
 }

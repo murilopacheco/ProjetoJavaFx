@@ -10,14 +10,14 @@ import java.util.List;
 /**
  * Created by murilo on 06/04/2017.
  */
-public class ClienteDAO {
+public class ClienteDao {
 
     ConnectionFactory connection = null;
     private Connection con;
     private Statement stm;
     private PreparedStatement stmt;
 
-    public ClienteDAO() {
+    public ClienteDao() {
         ConnectionFactory cf = new ConnectionFactory();
         con = cf.getConnection();
     }

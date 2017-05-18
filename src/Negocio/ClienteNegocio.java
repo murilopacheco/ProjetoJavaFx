@@ -1,6 +1,6 @@
 package Negocio;
 
-import Dao.ClienteDAO;
+import Dao.ClienteDao;
 import Model.Cliente;
 
 import java.sql.SQLException;
@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  * Created by muril on 16/03/2017.
  */
 public class ClienteNegocio {
-    ClienteDAO clienteDao = new ClienteDAO();
+    ClienteDao clienteDao = new ClienteDao();
 
     public String salvar(Cliente cliente) throws SQLException {
 
