@@ -16,36 +16,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `clientes`
+-- Table structure for table `visitas`
 --
 
-DROP TABLE IF EXISTS `clientes`;
+DROP TABLE IF EXISTS `visitas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `clientes` (
+CREATE TABLE `visitas` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(100) NOT NULL,
-  `cpf` varchar(20) NOT NULL,
-  `sobrenome` varchar(100) NOT NULL,
-  `rg` varchar(100) DEFAULT NULL,
-  `endereco` varchar(200) DEFAULT NULL,
-  `telefone` varchar(20) DEFAULT NULL,
-  `celular` varchar(20) DEFAULT NULL,
-  `email` varchar(100) NOT NULL,
-  `dataNascimento` date DEFAULT NULL,
+  `id_Pet` int(10) NOT NULL,
+  `id_Veterinario` int(10) NOT NULL,
+  `dataVisita` date DEFAULT NULL,
+  `anaminese` text,
+  `medicamentos` text,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `cpf` (`cpf`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  KEY `id_Pet` (`id_Pet`),
+  KEY `id_Veterinario` (`id_Veterinario`),
+  CONSTRAINT `visitas_ibfk_1` FOREIGN KEY (`id_Pet`) REFERENCES `pets` (`id`),
+  CONSTRAINT `visitas_ibfk_2` FOREIGN KEY (`id_Veterinario`) REFERENCES `veterinarios` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `clientes`
+-- Dumping data for table `visitas`
 --
 
-LOCK TABLES `clientes` WRITE;
-/*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-INSERT INTO `clientes` VALUES (2,'Murilo','01446294102','Pacheco','1111','sdfsdfsd','11111','222222','kjlksdjf@kjkljk.com',NULL),(4,'nome','cpf','sobrenome','rg','endereco','telefone','celular','email','2017-04-13');
-/*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
+LOCK TABLES `visitas` WRITE;
+/*!40000 ALTER TABLE `visitas` DISABLE KEYS */;
+INSERT INTO `visitas` VALUES (1,5,2,'2017-05-10','anaminese','dipirona 500ml e raio x'),(4,5,2,'2017-05-11','animal com febre','dipirona 500mg 4 vezes ao dia'),(5,5,3,'2017-05-11','teste	','teste'),(6,4,3,'2017-05-11','sdfsdfsdf','sfsdfsdfsd');
+/*!40000 ALTER TABLE `visitas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -57,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-11 20:56:46
+-- Dump completed on 2017-05-18  8:56:26

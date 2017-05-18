@@ -16,34 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `pets`
+-- Table structure for table `usuarios`
 --
 
-DROP TABLE IF EXISTS `pets`;
+DROP TABLE IF EXISTS `usuarios`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `pets` (
+CREATE TABLE `usuarios` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(100) NOT NULL,
-  `cor` varchar(30) DEFAULT NULL,
-  `raca` varchar(30) DEFAULT NULL,
-  `sexo` varchar(20) DEFAULT NULL,
-  `dataNascimento` date DEFAULT NULL,
-  `id_cliente` int(10) NOT NULL,
+  `nome` varchar(50) NOT NULL,
+  `login` varchar(20) NOT NULL,
+  `senha` varchar(255) NOT NULL,
+  `ativo` tinyint(1) NOT NULL,
+  `tipo` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_cliente` (`id_cliente`),
-  CONSTRAINT `pets_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `login` (`login`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `pets`
+-- Dumping data for table `usuarios`
 --
 
-LOCK TABLES `pets` WRITE;
-/*!40000 ALTER TABLE `pets` DISABLE KEYS */;
-INSERT INTO `pets` VALUES (3,'pet','branco','viralata','macho','2017-04-20',2),(4,'pet 2','branco','viralata','macho','2017-04-20',4),(5,'pet5','branco','Cão','Macho','2017-04-27',2);
-/*!40000 ALTER TABLE `pets` ENABLE KEYS */;
+LOCK TABLES `usuarios` WRITE;
+/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+INSERT INTO `usuarios` VALUES (1,'usuario','usuario','12345',1,'veterinário');
+/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -55,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-11 20:56:49
+-- Dump completed on 2017-05-18  8:56:27
