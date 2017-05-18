@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginController">
+   <center>
+      <Pane fx:id="panePrincipal" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <PasswordField fx:id="pswSenha" layoutX="218.0" layoutY="231.0" />
+            <TextField fx:id="txtUsuario" layoutX="218.0" layoutY="169.0" />
+            <Label layoutX="272.0" layoutY="138.0" text="Usuario:" />
+            <Label layoutX="278.0" layoutY="214.0" text="Senha:" />
+            <Button layoutX="270.0" layoutY="274.0" mnemonicParsing="false" onAction="#login" text="Login" />
+            <Label fx:id="lbUsuarioInvalido" layoutX="377.0" layoutY="170.0" text="Usuário Invalido!" textFill="#f50606" visible="false">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbSenhaInvalida" layoutX="377.0" layoutY="232.0" text="Senha Invalida!" textFill="#ee0909" visible="false">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </center>
+</BorderPane>

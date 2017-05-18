@@ -5,11 +5,20 @@ package Model;
  */
 public class Usuario {
 
+    private int id;
     private String nome;
     private  String login;
     private String senha;
     private String tipo;
     private Boolean ativo;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;

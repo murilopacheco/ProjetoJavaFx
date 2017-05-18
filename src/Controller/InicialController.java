@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Usuario;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -8,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -25,6 +27,8 @@ import java.util.logging.Logger;
  */
 public class InicialController implements Initializable {
 
+    Usuario usuario = new Usuario();
+
     @FXML
     private MenuItem menuCadastrarCliente;
     @FXML
@@ -33,6 +37,8 @@ public class InicialController implements Initializable {
     private  MenuItem menuCadastrarVeterinarios;
     @FXML
     private MenuItem menuCadastrarUsuario;
+    @FXML
+    private MenuBar menuPrincipal;
 
 
 
@@ -89,6 +95,24 @@ public class InicialController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        menuPrincipal.setDisable(true);
+        URL arquivoFXML;
+        arquivoFXML = getClass().getResource("/Visao/login.fxml");
+        Parent fxmlParent = null;
+        try {
+            fxmlParent = (Parent) FXMLLoader.load(arquivoFXML);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        paneInicial.getChildren().clear();
+        paneInicial.getChildren().add(fxmlParent);
+        //  Scene cena = new Scene(fxmlParent, 600, 400);
+        //  ((Stage)paneInicial.getScene().getWindow()).setScene(cena);
+    }
+    public void SetarUsuarioSessao(Usuario usuario){
+        this.usuario = usuario;
+        this.menuPrincipal.setDisable(false);
+        paneInicial.getChildren().clear();
 
     }
 

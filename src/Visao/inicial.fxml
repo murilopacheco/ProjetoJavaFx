@@ -9,10 +9,7 @@
    <children>
       <BorderPane fx:id="bPaneInicial" layoutX="-2.0" layoutY="-2.0" prefHeight="600.0" prefWidth="800.0">
          <top>
-            <MenuBar>
-               <contextMenu>
-                  <ContextMenu />
-               </contextMenu>
+            <MenuBar fx:id="menuPrincipal">
                <menus>
                 <Menu mnemonicParsing="false" text="Cadastros">
                   <items>

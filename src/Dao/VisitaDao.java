@@ -28,8 +28,11 @@ public class VisitaDao {
             "(id_pet, id_veterinario, dataVisita, anaminese, medicamentos)" +
             "values(?,?,?,?,?);";
 
-    String sqlListarPorPets = "select vis.*, vet.nome as nomeVeterinario from visitas vis\n" +
-            "    inner join veterinarios vet where vet.id = vis.id_Veterinario and vis.id_Pet = ?;";
+    String sqlListarPorPets = "select vis.*, " +
+            "vet.nome as nomeVeterinario from visitas vis\n" +
+            "inner join veterinarios vet " +
+            "where vet.id = vis.id_Veterinario " +
+            "and vis.id_Pet = ?;";
 
 
     public String salvar(Visita visita, Pet pet, Veterinario veterinario) throws SQLException {
