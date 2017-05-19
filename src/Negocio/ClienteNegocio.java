@@ -2,6 +2,7 @@ package Negocio;
 
 import Dao.ClienteDao;
 import Model.Cliente;
+import relatorios.GeraRelatorios.RelatorioClientes;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.regex.Pattern;
  */
 public class ClienteNegocio {
     ClienteDao clienteDao = new ClienteDao();
+    RelatorioClientes relatorio = new RelatorioClientes();
 
     public String salvar(Cliente cliente) throws SQLException {
 
@@ -68,6 +70,10 @@ public class ClienteNegocio {
         List<Cliente> clientes = new ArrayList<Cliente>();
         clientes = clienteDao.listarClientes();
         return clientes;
+    }
+
+    public void gerarRelatorio(List<Cliente> clientes){
+        relatorio.imprimir(clientes);
     }
 
 
