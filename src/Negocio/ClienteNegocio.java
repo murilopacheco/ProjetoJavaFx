@@ -72,12 +72,7 @@ public class ClienteNegocio {
         return clientes;
     }
 
-    public void gerarRelatorio(List<Cliente> clientes){
-        relatorio.imprimir(clientes);
-    }
-
-
-    public boolean validaCPF(String CPF){
+        public boolean validaCPF(String CPF){
 
 // considera-se erro CPF's formados por uma sequencia de numeros iguais
             if (CPF.equals("00000000000") || CPF.equals("11111111111") ||

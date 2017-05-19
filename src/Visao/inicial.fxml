@@ -24,7 +24,7 @@
                 </Menu>
                 <Menu fx:id="menuRelatorios" mnemonicParsing="false" text="Relatórios">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
+                    <MenuItem fx:id="menuRelatorioClientes" mnemonicParsing="false" onAction="#abrirJanelaRelatorioClientes" text="Relatório de Clientes" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Configurações">
